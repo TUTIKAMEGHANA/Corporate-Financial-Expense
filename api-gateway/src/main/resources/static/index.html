@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Corporate Finance Dashboard</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:#f5f7fb;color:#172033}.login{min-height:100vh;display:grid;place-items:center;background:linear-gradient(135deg,#eef2ff,#f8fafc)}.box{background:#fff;padding:38px;width:390px;border-radius:20px;box-shadow:0 18px 50px #18233d1c}.box h1{margin:0 0 8px;font-size:25px}.box p{color:#718096}.box input{width:100%;padding:13px 14px;margin:8px 0;border:1px solid #dbe2ea;border-radius:10px;font-size:14px}.btn{padding:13px 18px;border:0;border-radius:10px;background:#4f46e5;color:white;width:100%;cursor:pointer;font-weight:600;margin-top:8px}.btn:hover{background:#4338ca}.app{display:none;min-height:100vh}.sidebar{position:fixed;left:0;top:0;bottom:0;width:245px;background:#172554;color:#fff;padding:24px 16px;box-shadow:8px 0 25px #17255418}.brand{font-size:21px;font-weight:800;padding:8px 12px 30px}.brand span{color:#a5b4fc}.menu-title{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:#aab5d6;padding:0 12px 10px}.nav button{display:flex;align-items:center;gap:12px;width:100%;border:0;background:transparent;color:#dbe4ff;padding:13px 14px;border-radius:10px;margin:4px 0;text-align:left;font-size:14px;cursor:pointer}.nav button:hover,.nav button.active{background:#4f46e5;color:#fff}.logout{position:absolute;bottom:24px;left:16px;right:16px}.logout button{color:#fecaca}.main{margin-left:245px;padding:30px 36px;min-height:100vh}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}.top h1{margin:0;font-size:27px}.top p{margin:5px 0 0;color:#7b8496}.user{background:#fff;padding:9px 14px;border-radius:12px;box-shadow:0 4px 18px #1e293b0b;font-size:13px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.card{background:#fff;padding:22px;border-radius:16px;box-shadow:0 5px 20px #1e293b0b;border:1px solid #edf0f5}.card .label{color:#788397;font-size:13px}.card h2{margin:9px 0 0;font-size:27px}.card .small{margin-top:8px;color:#22a06b;font-size:12px}.panel{background:#fff;padding:24px;border-radius:16px;margin-top:20px;box-shadow:0 5px 20px #1e293b0b;border:1px solid #edf0f5}.panel h2{margin:0 0 18px;font-size:19px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}.bar{height:10px;background:#edf0f7;border-radius:20px;overflow:hidden}.bar span{display:block;height:100%;background:#6366f1;border-radius:20px}.form{max-width:650px}.form label{display:block;font-size:13px;font-weight:600;margin:14px 0 7px}.form input,.form select{width:100%;padding:12px;border:1px solid #dbe2ea;border-radius:9px;background:#fff}.form .btn{width:auto}.msg{margin-top:12px;font-size:13px}.success{color:#16845a}.error{color:#c0392b}table{width:100%;border-collapse:collapse}th,td{padding:14px 10px;border-bottom:1px solid #edf0f4;text-align:left;font-size:14px}th{color:#718096;font-size:12px;text-transform:uppercase}.pill{display:inline-block;padding:5px 9px;border-radius:20px;background:#eef2ff;color:#4f46e5;font-size:12px}.cat-list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.cat{padding:18px;background:#f8f9ff;border-radius:12px;border:1px solid #e7e9ff;font-weight:600}.report-number{font-size:30px;font-weight:800;margin:5px 0}.report-row{display:flex;justify-content:space-between;margin:14px 0;font-size:14px}.empty{padding:35px;text-align:center;color:#8992a3}@media(max-width:900px){.sidebar{width:190px}.main{margin-left:190px;padding:22px}.cards{grid-template-columns:1fr 1fr}.cat-list{grid-template-columns:1fr 1fr}}@media(max-width:650px){.sidebar{position:relative;width:100%;min-height:auto}.logout{position:static;margin-top:15px}.main{margin-left:0}.cards,.grid2,.cat-list{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="login" class="login">
+  <div class="box">
+    <h1>Corporate Finance</h1><p>Secure financial expense management</p>
+    <input id="u" value="admin" placeholder="Username">
+    <input id="p" type="password" value="admin123" placeholder="Password">
+    <button class="btn" onclick="login()">Sign In</button><p id="err" class="error"></p>
+  </div>
+</div>
+
+<div id="app" class="app">
+  <aside class="sidebar">
+    <div class="brand">Corporate <span>Finance</span></div>
+    <div class="menu-title">Main Menu</div>
+    <nav class="nav">
+      <button id="nav-dashboard" onclick="showPage('dashboard')">▣ <span>Dashboard</span></button>
+      <button id="nav-add" onclick="showPage('add')">＋ <span>Add Expense</span></button>
+      <button id="nav-expenses" onclick="showPage('expenses')">▤ <span>Expenses</span></button>
+      <button id="nav-categories" onclick="showPage('categories')">◈ <span>Categories</span></button>
+      <button id="nav-reports" onclick="showPage('reports')">▥ <span>Reports</span></button>
+    </nav>
+    <div class="logout"><button onclick="logout()">⇥ <span>Logout</span></button></div>
+  </aside>
+  <main class="main">
+    <div class="top"><div><h1 id="title">Dashboard</h1><p id="subtitle">Overview of your corporate finances</p></div><div class="user">Admin Account</div></div>
+    <div id="content"></div>
+  </main>
+</div>
+
+<script>
+let token="";
+async function api(url,opt={}){opt.headers={...(opt.headers||{}),'Authorization':'Bearer '+token,'Content-Type':'application/json'};let r=await fetch(url,opt);if(!r.ok)throw new Error(await r.text());return r.json()}
+async function login(){try{let r=await fetch('/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u.value,password:p.value})});if(!r.ok){err.textContent='Invalid username or password';return}let d=await r.json();token=d.token;loginDiv.style.display='none';app.style.display='block';showPage('dashboard')}catch(e){err.textContent='Unable to connect to server'}}
+function logout(){token='';location.reload()}
+function setActive(page){document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));let el=document.getElementById('nav-'+page);if(el)el.classList.add('active')}
+async function showPage(page){setActive(page);try{if(page==='dashboard')await loadDash();if(page==='add')loadAdd();if(page==='expenses')await loadExpenses();if(page==='categories')await loadCategories();if(page==='reports')await loadReport()}catch(e){content.innerHTML='<div class="panel error">Unable to load this page. Please check that the services are running.</div>'}}
+async function loadDash(){title.textContent='Dashboard';subtitle.textContent='Overview of your corporate finances';let r=await api('/api/reports/summary');let pct=Math.min(100,(r.totalExpenses/100000)*100);content.innerHTML=`<div class="cards"><div class="card"><div class="label">Total Budget</div><h2>₹1,00,000</h2><div class="small">Monthly budget</div></div><div class="card"><div class="label">Total Expenses</div><h2>₹${r.totalExpenses.toLocaleString('en-IN')}</h2><div class="small">${pct.toFixed(0)}% of budget used</div></div><div class="card"><div class="label">Remaining</div><h2>₹${r.remainingBudget.toLocaleString('en-IN')}</h2><div class="small">Available budget</div></div><div class="card"><div class="label">Transactions</div><h2>${r.transactions}</h2><div class="small">Recorded expenses</div></div></div><div class="grid2"><div class="panel"><h2>Budget Usage</h2><div class="bar"><span style="width:${pct}%"></span></div><div class="report-row"><span>Used</span><b>${pct.toFixed(0)}%</b></div><div class="report-row"><span>Remaining</span><b>₹${r.remainingBudget.toLocaleString('en-IN')}</b></div></div><div class="panel"><h2>Quick Actions</h2><p style="color:#718096">Manage expenses and view financial information from the menu.</p><button class="btn" onclick="showPage('add')">Add New Expense</button></div></div>`}
+function loadAdd(){title.textContent='Add Expense';subtitle.textContent='Record a new corporate expense';content.innerHTML=`<div class="panel form"><h2>Expense Details</h2><label>Description</label><input id="desc" placeholder="e.g. Business Travel"><label>Category</label><select id="cat"><option>Travel</option><option>Food</option><option>Office</option><option>Accommodation</option><option>Other</option></select><label>Amount (₹)</label><input id="amount" type="number" min="1" placeholder="Enter amount"><button class="btn" onclick="saveExpense()">Save Expense</button><div id="formMsg" class="msg"></div></div>`}
+async function saveExpense(){let d=desc.value,a=Number(amount.value),c=cat.value;if(!d||!a){formMsg.textContent='Please enter description and amount.';formMsg.className='msg error';return}try{await api('/api/expenses',{method:'POST',body:JSON.stringify({description:d,category:c,amount:a})});formMsg.textContent='Expense added successfully!';formMsg.className='msg success';desc.value='';amount.value=''}catch(e){formMsg.textContent='Could not save expense.';formMsg.className='msg error'}}
+async function loadExpenses(){title.textContent='Expenses';subtitle.textContent='View all recorded expenses';let a=await api('/api/expenses');content.innerHTML=`<div class="panel"><h2>Expense Transactions</h2>${a.length?'<table><tr><th>Description</th><th>Category</th><th>Amount</th><th>Date</th></tr>'+a.map(x=>`<tr><td><b>${x.description}</b></td><td><span class="pill">${x.category}</span></td><td>₹${x.amount.toLocaleString('en-IN')}</td><td>${x.date}</td></tr>`).join('')+'</table>':'<div class="empty">No expenses found.</div>'}</div>`}
+async function loadCategories(){title.textContent='Categories';subtitle.textContent='Expense categories used in the system';let a=await api('/api/categories');content.innerHTML='<div class="panel"><h2>Expense Categories</h2><div class="cat-list">'+a.map(x=>'<div class="cat">◈ &nbsp;'+x+'</div>').join('')+'</div></div>'}
+async function loadReport(){title.textContent='Reports';subtitle.textContent='Financial summary and spending breakdown';let r=await api('/api/reports/summary');let entries=Object.entries(r.byCategory||{});content.innerHTML=`<div class="grid2"><div class="panel"><h2>Financial Summary</h2><div class="report-row"><span>Total Budget</span><b>₹1,00,000</b></div><div class="report-row"><span>Total Expenses</span><b>₹${r.totalExpenses.toLocaleString('en-IN')}</b></div><div class="report-row"><span>Remaining Budget</span><b>₹${r.remainingBudget.toLocaleString('en-IN')}</b></div><div class="report-row"><span>Transactions</span><b>${r.transactions}</b></div></div><div class="panel"><h2>Spending by Category</h2>${entries.length?entries.map(([k,v])=>`<div class="report-row"><span>${k}</span><b>₹${Number(v).toLocaleString('en-IN')}</b></div>`).join(''):'<div class="empty">No category data available.</div>'}</div></div>`}
+const loginDiv=document.getElementById('login');const app=document.getElementById('app');
+</script>
+</body>
+</html>
